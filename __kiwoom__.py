@@ -30,8 +30,9 @@ class KiwoomAPI(QAxWidget):   # OpenAPI+가 제공하는 메서드를 호출하�
         
         
         
-        self.on_receive_opw00001()
-        # self.get_account_info()
+        # self.on_receive_opw00001()
+        self.get_account_info()
+        self.detail_account_info()
         
         
         
@@ -142,10 +143,10 @@ class KiwoomAPI(QAxWidget):   # OpenAPI+가 제공하는 메서드를 호출하�
         
         
         
-    def get_comm_data(self, trcode, rqname, next, real_name):
-        ret = self.dynamicCall("GetCommData(QString, QString, QString, int, QString)", trcode, rqname,
-                               next, real_name)
-        return ret.strip()
+    # def get_comm_data(self, trcode, rqname, next, real_name):
+    #     ret = self.dynamicCall("GetCommData(QString, QString, QString, int, QString)", trcode, rqname,
+    #                            next, real_name)
+    #     return ret.strip()
         # 이 함수는 조회한 걸 요청할때 쓰는 함수 요청하면 값을 받을수 있는 함수 
         # 개발자 함수에는 trcode, trname, prenext, screennumber 만 있으면 된다.
         # 요구되는 매개변수, 인자 4개
@@ -161,7 +162,8 @@ class KiwoomAPI(QAxWidget):   # OpenAPI+가 제공하는 메서드를 호출하�
         if rqname == 'opw00001_req' :
         
         
-            deposit = self.get_comm_data(trcode, rqname, 0, '예수금')
+            deposit = self.dynamicCall('GetCommData(String, String, int, String)',trcode, rqname, 0, '예수금')
+            # deposit = self.dynamicCall('GetCommData(String, String, int, String)', sTrCode, sRQName, 0, '예수금')
             # deposit = self.dynamicCall('GetCommData(String, String, int, String)', sTrCode, sRQName, 0, '예수금')
             # print(f'예수금 : {deposit.strip()}')
             print("예수금: " + int(deposit))
